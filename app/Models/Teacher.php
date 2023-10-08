@@ -14,11 +14,21 @@ class Teacher extends Model
         'lastName',
         'contactNumber',
         'subjectSpeciality',
-        'user'
+        'user_id'
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user', 'id');
+        return $this->belongsTo(User::class);
+    }
+
+    public function sessions()
+    {
+        return $this->hasMany(Session::class);
+    }
+
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
     }
 }

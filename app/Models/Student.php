@@ -13,11 +13,21 @@ class Student extends Model
         'firstName',
         'lastName',
         'contactNumber',
-        'user'
+        'user_id'
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user', 'id');
+        return $this->belongsTo(User::class);
+    }
+
+    public function sessions()
+    {
+        return $this->belongsToMany(Session::class);
+    }
+
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
     }
 }

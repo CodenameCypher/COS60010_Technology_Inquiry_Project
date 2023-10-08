@@ -72,7 +72,7 @@ class AuthController extends Controller
         $teacherData['lastName'] = $request->lastName;
         $teacherData['contactNumber'] = $request->contactNumber;
         $teacherData['subjectSpeciality'] = $request->subjectSpeciality;
-        $teacherData['user'] = $user->id;
+        $teacherData['user_id'] = $user->id;
 
         $teacher = Teacher::create($teacherData);
 
@@ -111,7 +111,7 @@ class AuthController extends Controller
         $studentData['firstName'] = $request->firstName;
         $studentData['lastName'] = $request->lastName;
         $studentData['contactNumber'] = $request->contactNumber;
-        $studentData['user'] = $user->id;
+        $studentData['user_id'] = $user->id;
 
         $student = Student::create($studentData);
 

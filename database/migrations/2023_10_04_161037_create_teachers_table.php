@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('subjectSpeciality');
             $table->string('contactNumber');
             $table->timestamps();
-            $table->foreignId('user')->constrained();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
         });
     }
 

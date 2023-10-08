@@ -10,6 +10,42 @@
             <a class="nav-link active" aria-current="page" href="{{route('home')}}">Home</a>
           </li>
           @auth
+
+          {{-- Admin Home Navbar Links --}}
+          @if (auth()->user()->userType == 'Admin')
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{route('adminSessionList')}}">Sessions</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{route('adminQuestionList')}}">Questions</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{route('home')}}">Users</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{route('home')}}">Statistics</a>
+          </li>
+
+          {{-- Student Home Navbar Links --}}
+          @elseif (auth()->user()->userType == 'Student')
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{route('home')}}">Sessions</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{route('home')}}">Enrolled Sessions</a>
+          </li>
+          
+          {{-- Teacher Home Navbar Links --}}
+          @elseif (auth()->user()->userType == 'Teacher')
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{route('home')}}">Sessions</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{route('home')}}">Enrolled Sessions</a>
+          </li>
+
+          @endif
+          
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               {{auth()->user()->name}}
