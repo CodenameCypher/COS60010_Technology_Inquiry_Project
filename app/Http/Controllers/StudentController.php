@@ -56,8 +56,10 @@ class StudentController extends Controller
     {
         $isTeacherAuth = auth()->user()->userType == 'Teacher';
         if($isTeacherAuth) {
-            $teacher = \App\Models\Session::all(); 
-            return view('teacher.student_enroll_list', ["enrolled_sessions" => $teacher]);  
+            $teacher = \App\Models\Session::where('teacher_id', auth()->id())->get();
+            //return auth()->id();
+            //$teacher = \App\Models\Session::all(); 
+            return view('student.student_enroll_list', ["enrolled_sessions" => $teacher]);  
         }
         $student = Student::where('user_id', auth()->id())->first();
         $studentID = $student->id;
@@ -74,8 +76,17 @@ class StudentController extends Controller
     {
         $isTeacherAuth = auth()->user()->userType == 'Teacher';
         if($isTeacherAuth) {
-            return redirect('www.google.com', 200);    
+            //$teacher = Teacher::where('user_id', auth()->id())->first();
+            //\App\Models\Session::find($id)->update([
+                //'teacher_id' =>  auth()->id()
+            //]);
+            $teacher = \App\Models\Session::find($id);
+            $teacher->teacher_id = 7;
+            $teacher->save();
+            //return auth()->id();
+            return redirect(route('studentEnrolledSessionList'))->with('success', 'Session Unrolled Successfully!');  
         }
+
         $student = Student::where('user_id', auth()->id())->first();
         $student->sessions()->detach($id);
 
