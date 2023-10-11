@@ -22,7 +22,15 @@ class StudentController extends Controller
         
         $isTeacherAuth = auth()->user()->userType == 'Teacher';
         if($isTeacherAuth) {
-            return redirect('www.google.com', 200);    
+            //$teacher = Teacher::where('user_id', auth()->id())->first();
+            //\App\Models\Session::find($id)->update([
+                //'teacher_id' =>  auth()->id()
+            //]);
+            $teacher = \App\Models\Session::find($id);
+            $teacher->teacher_id = auth()->id();
+            $teacher->save();
+            //return auth()->id();
+            return redirect(route('studentSessionList'))->with('success', 'Enrolled Successfully!');   
         }
 
         $student = Student::where('user_id', auth()->id())->first();
