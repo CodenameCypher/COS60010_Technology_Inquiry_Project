@@ -29,10 +29,10 @@
           {{-- Student Home Navbar Links --}}
           @elseif (auth()->user()->userType == 'Student')
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{{route('home')}}">Sessions</a>
+            <a class="nav-link active" aria-current="page" href="{{route('studentSessionList')}}">Sessions</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{{route('home')}}">Enrolled Sessions</a>
+            <a class="nav-link active" aria-current="page" href="{{route('studentEnrolledSessionList')}}">Enrolled Sessions</a>
           </li>
           
           {{-- Teacher Home Navbar Links --}}

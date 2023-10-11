@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -39,4 +40,18 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     Route::get('/admin/questions', [AdminController::class, 'question_list'])->name('adminQuestionList');
+
+
+
+
+
+    //Student Routes:
+    Route::get('/student/sessions', [StudentController::class, 'session_list'])->name('studentSessionList');
+    Route::get('/student/enrolledsessions', [StudentController::class, 'enrolled_session_list'])->name('studentEnrolledSessionList');
+
+
+    Route::post('/student/sessions/{id}/enroll', [StudentController::class, 'session_enroll'])->name('studentSessionEnroll');
+    Route::post('/student/sessions/{id}/Unenroll', [StudentController::class, 'session_Unenroll'])->name('studentSessionUnEnroll');
+
+
 });

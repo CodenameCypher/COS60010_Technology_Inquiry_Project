@@ -23,7 +23,7 @@ class Student extends Model
 
     public function sessions()
     {
-        return $this->belongsToMany(Session::class);
+        return $this->belongsToMany(Session::class)->withPivot('session_id')->withTimestamps();
     }
 
     public function questions()
