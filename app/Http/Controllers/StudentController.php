@@ -56,7 +56,8 @@ class StudentController extends Controller
     {
         $isTeacherAuth = auth()->user()->userType == 'Teacher';
         if($isTeacherAuth) {
-            return redirect('www.google.com', 200);    
+            $teacher = \App\Models\Session::all(); 
+            return view('teacher.student_enroll_list', ["enrolled_sessions" => $teacher]);  
         }
         $student = Student::where('user_id', auth()->id())->first();
         $studentID = $student->id;
