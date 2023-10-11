@@ -56,7 +56,8 @@ class StudentController extends Controller
     {
         $isTeacherAuth = auth()->user()->userType == 'Teacher';
         if($isTeacherAuth) {
-            $teacher = \App\Models\Session::where('teacher_id', auth()->id())->get();
+            $teacherid = \App\Models\Teacher::where('user_id', auth()->id())->pluck('id');
+            $teacher = \App\Models\Session::where('teacher_id', $teacherid)->get();
             //return auth()->id();
             //$teacher = \App\Models\Session::all(); 
             return view('student.student_enroll_list', ["enrolled_sessions" => $teacher]);  
