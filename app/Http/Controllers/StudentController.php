@@ -10,11 +10,20 @@ class StudentController extends Controller
 {
     public function session_list()
     {
+        $isTeacherAuth = auth()->user()->userType == 'Teacher';
+        if($isTeacherAuth) {
+            return view('teacher.student_session_list');    
+        }
+        return view('student.student_session_list');
     }
 
     public function session_enroll($id)
     {
-
+        
+        $isTeacherAuth = auth()->user()->userType == 'Teacher';
+        if($isTeacherAuth) {
+            return redirect('www.google.com', 200);    
+        }
 
         $student = Student::where('user_id', auth()->id())->first();
         
@@ -37,6 +46,10 @@ class StudentController extends Controller
 
     public function enrolled_session_list()
     {
+        $isTeacherAuth = auth()->user()->userType == 'Teacher';
+        if($isTeacherAuth) {
+            return redirect('www.google.com', 200);    
+        }
         $student = Student::where('user_id', auth()->id())->first();
         $studentID = $student->id;
         $enrolled_sessions =  $student->sessions()->where('student_id', $studentID)->get();
@@ -50,6 +63,10 @@ class StudentController extends Controller
 
     public function session_Unenroll($id)
     {
+        $isTeacherAuth = auth()->user()->userType == 'Teacher';
+        if($isTeacherAuth) {
+            return redirect('www.google.com', 200);    
+        }
         $student = Student::where('user_id', auth()->id())->first();
         $student->sessions()->detach($id);
 

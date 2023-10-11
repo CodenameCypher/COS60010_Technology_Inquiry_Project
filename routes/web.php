@@ -53,5 +53,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/student/sessions/{id}/enroll', [StudentController::class, 'session_enroll'])->name('studentSessionEnroll');
     Route::post('/student/sessions/{id}/Unenroll', [StudentController::class, 'session_Unenroll'])->name('studentSessionUnEnroll');
 
+     
 
 });
