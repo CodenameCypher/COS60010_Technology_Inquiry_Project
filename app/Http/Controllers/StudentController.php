@@ -26,8 +26,13 @@ class StudentController extends Controller
             //\App\Models\Session::find($id)->update([
                 //'teacher_id' =>  auth()->id()
             //]);
+            $teacherid = \App\Models\Teacher::where('user_id', auth()->id())->pluck('id');
+            //$teacher = \App\Models\Session::where('teacher_id', $teacherid)->get();
             $teacher = \App\Models\Session::find($id);
-            $teacher->teacher_id = auth()->id();
+            //return $teacherid[0];
+            $tid = $teacherid[0];
+            //return $tid;
+            $teacher->teacher_id = $tid;
             $teacher->save();
             //return auth()->id();
             return redirect(route('studentSessionList'))->with('success', 'Enrolled Successfully!');   
