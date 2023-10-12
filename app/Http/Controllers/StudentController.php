@@ -10,6 +10,8 @@ class StudentController extends Controller
 {
     public function session_list()
     {
+        return view('student.student_session_list');
+
     }
 
     public function session_enroll($id)
