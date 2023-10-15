@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -53,5 +54,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/student/sessions/{id}/enroll', [StudentController::class, 'session_enroll'])->name('studentSessionEnroll');
     Route::post('/student/sessions/{id}/Unenroll', [StudentController::class, 'session_Unenroll'])->name('studentSessionUnEnroll');
 
+    //Teacher Routes
+    Route::get('/teacher/sessions', [TeacherController::class, 'session_list'])->name('teacherSessionList'); 
+    Route::get('/teacher/enrolledsessions', [TeacherController::class, 'enrolled_session_list'])->name('teacherEnrolledSessionList');
+
+
+    Route::post('/teacher/sessions/{id}/enroll', [TeacherController::class, 'session_enroll'])->name('teacherSessionEnroll');  
+    Route::post('/teacher/sessions/{id}/Unenroll', [TeacherController::class, 'session_Unenroll'])->name('teacherSessionUnEnroll'); 
 
 });
