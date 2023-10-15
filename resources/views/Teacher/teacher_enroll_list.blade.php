@@ -33,6 +33,7 @@
             <table class="table table-hover">
                 <thead>
                   <tr>
+                    <th scope="col">#</th>
                     <th scope="col">ID</th>
                     <th scope="col">Topic</th>
                     <th scope="col">Start</th>
@@ -45,6 +46,7 @@
                     @foreach ($enrolled_sessions as $session)
                         @if (auth()->user()->name == $session->teacher->user->name)
                             <tr>
+                                <th scope="row">{{$loop->index + 1}}</th>
                                 <td>{{$session->id}}</td>
                                 <td>{{$session->session_topic}}</td>
                                 <td>{{$session->session_starting_time}}</td>
