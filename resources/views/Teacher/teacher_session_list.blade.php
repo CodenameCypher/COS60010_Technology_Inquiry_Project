@@ -33,6 +33,7 @@
             <table class="table table-hover">
                 <thead>
                   <tr>
+                    <th scope="col">#</th>
                     <th scope="col">ID</th>
                     <th scope="col">Topic</th>
                     <th scope="col">Start</th>
@@ -42,13 +43,15 @@
                   </tr>
                 </thead>
                 <tbody>
-                    <!-- Displaying all the session list to student user with enroll option.-->
+                    @php
+                      $rowNumber = 1; 
+                    @endphp
                   @foreach (\App\Models\Session::all() as $session)
               
                  
             <tr>
             @if(is_null($session->teacher_id))
-
+                <th scope="row">{{ $rowNumber }}</th>
                 <td>{{$session->id}}</td>
                 <td>{{$session->session_topic}}</td>
                 <td>{{$session->session_starting_time}}</td>
@@ -61,7 +64,9 @@
                     </form>
                     
                 </td>
-                
+                @php
+                      $rowNumber++; 
+                @endphp 
             </tr>
             @endif
      
