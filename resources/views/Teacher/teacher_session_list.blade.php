@@ -1,6 +1,6 @@
 @extends('common.layout')
 
-@section('title', 'Sessions | Bright Boost')
+@section('title', 'Available Sessions | Bright Boost')
 
 @section('body')
 <div class="mt-5">
