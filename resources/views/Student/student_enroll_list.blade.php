@@ -51,7 +51,11 @@
                         <td>{{$session->session_topic}}</td>
                         <td>{{$session->session_starting_time}}</td>
                         <td>{{$session->session_ending_time}}</td>
+                        @if (is_null($session->teacher_id))
+                        <td>TBA</td>
+                        @else 
                         <td>{{$session->teacher->user->name}}</td>
+                        @endif
                         <td>
                             <form action="{{route('studentSessionUnEnroll',$session->id)}}" method="POST">
                                 @csrf
