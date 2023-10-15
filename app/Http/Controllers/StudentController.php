@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Student;
+use App\Models\Question;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
@@ -54,6 +55,32 @@ class StudentController extends Controller
 
     }
 
+    public function askQuestionForm($id)
+    {
+        return view('student.ask_question', ['sessionId'=> $id]);
+    }
+
+    public function submitQuestion(Request $request, $id)
+    {
+        // Validate the form data
+        $request->validate([
+            'question' => 'required|string|max:255',
+            'questionTopic' => 'required|string|max:255',
+        ]);
+
+        $student = Student::where('user_id', auth()->id())->first();
+
+        $questionContent['question_topic'] = $request->questionTopic;
+        $questionContent['question_content'] = $request->question;
+        $questionContent['session_id'] = $id;
+        $questionContent['student_id'] = $student->id;
+        $questionContent['question_answer'] = null;
+        $question = Question::create($questionContent);
+        $question->save();
+        
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Question submitted successfully!');
+    }
 
 }
 

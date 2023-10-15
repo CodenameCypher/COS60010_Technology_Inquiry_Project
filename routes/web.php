@@ -62,4 +62,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/teacher/sessions/{id}/enroll', [TeacherController::class, 'session_enroll'])->name('teacherSessionEnroll');  
     Route::post('/teacher/sessions/{id}/Unenroll', [TeacherController::class, 'session_Unenroll'])->name('teacherSessionUnEnroll'); 
 
+    //Ask Question Routes
+    Route::get('/student/{id}/ask-question', [StudentController::class, 'askQuestionForm'])->name('ask.question.form');
+    Route::post('/student/{id}/submit-question', [StudentController::class, 'submitQuestion'])->name('submit.question');
+
 });
