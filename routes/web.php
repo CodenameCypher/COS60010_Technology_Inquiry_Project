@@ -72,4 +72,9 @@ Route::group(['middleware' => 'auth'], function () {
     //Ask Question Routes
     Route::get('/student/{id}/ask-question', [StudentController::class, 'askQuestionForm'])->name('ask.question.form');
     Route::post('/student/{id}/submit-question', [StudentController::class, 'submitQuestion'])->name('submit.question');
+
+    // View Question and Answer Routes
+    Route::get('/view-questions', [TeacherController::class, 'question_list'])->name('view.question');
+    Route::get('/questions/{id}/answer', [TeacherController::class, 'submitAnswer'])->name('submit.answer');
+
 });

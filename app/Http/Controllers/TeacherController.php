@@ -53,4 +53,20 @@ public function session_Unenroll($id)
 
     }
 
+    public function question_list()
+    {
+      return view('teacher.view_ques_list');
+    }
+
+    public function submitAnswer($id)
+    {
+        $question = Question::find($id);
+        return view('questions.answer', compact('question'));
+    }
+    
+    public function answer($id)
+    {
+        $question = Question::find($id);
+        return view('questions.answer', compact('question'));
+    }
 }
