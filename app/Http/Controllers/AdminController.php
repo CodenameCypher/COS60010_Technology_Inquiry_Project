@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Session;
+use App\Models\Teacher;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -98,4 +101,71 @@ class AdminController extends Controller
             }
         }
     }
+
+
+    public function user_list()
+    {
+        if (Auth::check()) {
+            if (Auth::user()->userType != "Admin") {
+                return redirect(route('home'))->with('error', 'This page is only accessible for admins!');
+            } else {
+                return view('admin.user.user_list');
+            }
+        }
+    }
+
+    public function  user_edit($id)
+    {
+        if (Auth::check()) {
+            if (Auth::user()->userType != "Admin") {
+                return redirect(route('home'))->with('error', 'This page is only accessible for admins!');
+            } else {
+                $user = User::findOrFail($id);
+                return view('admin.user.user_edit', ['user' => $user]);
+
+            }
+        }
+    }
+
+
+
+    public function user_editPost(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $request->validate([
+            'firstName' => 'required',
+            'lastName' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
+        $user->name = "$request->firstName $request->lastName";
+        $user->password = Hash::make($request->password);
+       
+        $teacher = $user->teacher;
+        $teacher->firstName = $request->firstName;
+        $teacher->lastName = $request->lastName;
+
+        $checkEmail = $user->where('email',$request->email)->exists();
+
+
+        if($user->email == $request->email){
+            $user->save();
+            $teacher->save();
+            return redirect(route('adminUserView'))->with('success', 'Updated successfully!');
+        } 
+        else if ($checkEmail) {
+            return redirect(route('userEdit', $user->id))->with('error', 'New Email entered already exist! Try with another email.');
+        }
+        else{
+            $user->email = $request->email;
+            $user->save();
+            $teacher->save();
+            return redirect(route('adminUserView'))->with('success', 'Updated successfully!');
+        }
+    }
+
+
+
+
 }
