@@ -23,7 +23,7 @@
             <a class="nav-link active" aria-current="page" href="{{route('adminUserView')}}">Users</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{{route('home')}}">Statistics</a>
+            <a class="nav-link active" aria-current="page" href="{{route('adminStat')}}">Statistics</a>
           </li>
 
           {{-- Student Home Navbar Links --}}

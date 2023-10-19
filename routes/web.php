@@ -72,4 +72,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/admin/users/{id}/edit', [AdminController::class, 'user_edit'])->name('userEdit');
     Route::post('/admin/users/{id}/edit', [AdminController::class, 'user_editPost'])->name('adminUserEdit.post');
 
+
+
+
+
+
+    //Chart Visuals
+    Route::get('/admin/statistics/statSessionList', [AdminController::class, 'session_list_stat'])->name('adminStat');
+
+    Route::get('/admin/statistics/{id}/statSessionCharts', [AdminController::class, 'adminCharts'])->name('adminCharts');
+
+
+
 });

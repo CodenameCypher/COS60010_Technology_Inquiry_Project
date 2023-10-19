@@ -28,7 +28,7 @@ class Session extends Model
 
     public function students()
     {
-        return $this->belongsToMany(Student::class)->withPivot('student_id')->withTimestamps(); //adding so that attach() method can be used as many-many relationship
+        return $this->belongsToMany(Student::class)->withPivot(['student_id', 'attended'])->withTimestamps(); //adding so that attach() method can be used as many-many relationship
     }
 
     public function questions()

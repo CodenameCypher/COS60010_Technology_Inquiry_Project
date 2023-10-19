@@ -9,5 +9,11 @@
         "axios": "^1.1.2",
         "laravel-vite-plugin": "^0.8.0",
         "vite": "^4.0.0"
+    },
+    "dependencies": {
+        "chart.js": "^4.4.0",
+        "chartjs-plugin-datalabels": "^2.2.0",
+        "laravel-mix": "^6.0.49",
+        "save-dev": "^0.0.1-security"
     }
 }

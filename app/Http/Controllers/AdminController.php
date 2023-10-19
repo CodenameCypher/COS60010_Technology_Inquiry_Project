@@ -143,7 +143,7 @@ class AdminController extends Controller
         $user->password = Hash::make($request->password);
        
         $teacher = $user->teacher;
-        $teacher->firstName = $request->firstName;
+        $teacher->firstName = $request->firstName; // needs for student part 10th oct
         $teacher->lastName = $request->lastName;
 
         $checkEmail = $user->where('email',$request->email)->exists();
@@ -166,6 +166,50 @@ class AdminController extends Controller
     }
 
 
+
+
+    public function session_list_stat()
+    {
+        if (Auth::check()) {
+            if (Auth::user()->userType != "Admin") {
+                return redirect(route('home'))->with('error', 'This page is only accessible for admins!');
+            } else {
+                return view('admin.statistics.session_list_stat');
+            }
+        }
+    }
+
+
+
+
+    public function adminCharts($id)
+    {
+        $attendedSession = 0;
+        $notAttended = 0;
+        $totalstudents = 0;
+        $session = Session::find($id);
+        foreach ($session->students as $student) {
+            $attended = $student->pivot->attended;
+            if($attended == 1){
+                $attendedSession ++;
+                $totalstudents ++;
+            }else{
+                $notAttended ++;
+                $totalstudents ++;
+            }
+        }
+        //ignore, jus testing..
+        // $attended = $session->students->where('attended', 1)->count();
+        // $notAttended = $session->students->where('attended', 0)->count();
+        $totalQuestions = $session->questions->count();
+        $notAnswered = $session->questions->where('teacher_id', null)->count();
+        $answered = $session->questions->whereNotNull('teacher_id')->count();
+
+       
+
+ 
+        return view('admin.statistics.attendSession-chart', ['attended' => $attendedSession, 'notAttended' => $notAttended, 'sessionID' => $id, 'notAnswered' => $notAnswered, 'answered' => $answered, 'totalStudent'=> $totalstudents, 'totalQuestions'=>$totalQuestions]);
+    }
 
 
 }
