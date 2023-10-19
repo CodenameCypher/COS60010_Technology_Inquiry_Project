@@ -1,6 +1,6 @@
 @extends('common.layout')
 
-@section('title', 'Sessions | Bright Boost')
+@section('title', 'Ask-Question | Bright Boost')
 
 @section('body')
     <div class="container">

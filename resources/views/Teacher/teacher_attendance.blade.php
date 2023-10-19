@@ -1,6 +1,6 @@
 @extends('common.layout')
 
-@section('title', 'Questions | Bright Boost')
+@section('title', 'Teacher  Attendance | Bright Boost')
 
 @section('body')
 <div class="mt-5">
@@ -36,7 +36,11 @@
                     <th scope="col">#</th>
                     <th scope="col">Topic</th>
                     <th scope="col">Content</th>
+                    <th scope="col">Asked Time</th>
+                    <th scope="col">Answered Time</th>
+                    <th scope="col">Time Taken</th>
                     <th scope="col">Asked By</th>
+                    <th scope="col">Answered By</th>
                     <th scope="col">Asked In</th>
                     <th scope="col">Action</th>
                   </tr>
@@ -47,17 +51,15 @@
                         <th scope="row">{{$loop->index + 1}}</th>
                         <td>{{$question->question_topic}}</td>
                         <td>{{$question->question_content}}</td>
+                        <td>{{$question->question_asked_time}}</td>
+                        <td>{{$question->question_answered_time}}</td>
+                        <td>{{$question->time_taken}}</td>
                         <td>{{$question->student->user->name}}</td>
+                        <td>{{$question->teacher->user->name ?? "-"}}</td>
                         <td>Session ID {{$question->session->id}}</td>
                         <td>
-                            <form action="{{route('view.question',$question->id)}}" method="POST">
-                                @csrf
-                                <a class="btn btn-outline-success btn-sm" href='{{route('answer.question',$question->id)}}'>Answer</a>
-                            </form>
-                            
+                            <a href="{{ route('submit.answer', ['id' => $question->id]) }}" class="btn btn-primary">Answer</a>
                         </td>
-
-                        
                     </tr>
                   @endforeach
                 </tbody>

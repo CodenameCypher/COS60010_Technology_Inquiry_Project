@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Teacher;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\Question;
 use Illuminate\Http\Request;
 
 class TeacherController extends Controller
@@ -61,12 +61,12 @@ public function session_Unenroll($id)
     public function submitAnswer($id)
     {
         $question = Question::find($id);
-        return view('questions.answer', compact('question'));
+        return view('submit.answer', compact('question'));
     }
-    
-    public function answer($id)
+
+    public function answerQuestion($id)
     {
         $question = Question::find($id);
-        return view('questions.answer', compact('question'));
+        return view('answer.question', compact('question'));
     }
 }

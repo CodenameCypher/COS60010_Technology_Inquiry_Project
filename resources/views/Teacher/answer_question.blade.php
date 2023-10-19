@@ -1,6 +1,6 @@
 @extends('common.layout')
 
-@section('title', 'Sessions | Bright Boost')
+@section('title', 'Answer | Bright Boost')
 
 @section('body')
     <div class="container">
@@ -16,18 +16,22 @@
                             </div>
                         @endif
 
-                        <form method="POST" action="{{ route('submit.question', $sessionId)}}">
+                        <form method="POST" action="{{ route('submit.answer', $sessionId)}}">
                             @csrf
 
                             <div class="form-group">
+                                <label for="questionTopic">{{$question->question_topic}}</label>
+                                <label for="question">{{$question->question_content}}</label>
                                 <label for="answer">Answer</label>
                                 <textarea id="answer" name="answer" class="form-control" required></textarea>
                                 
                             </div>
-                            
-
                             <button type="submit" class="btn btn-primary">Submit Answer</button>
                         </form>
+
+                        <div class="mt-3">
+                            <a href="{{ route('teacherClassAttendance', ['id' => $sessionId]) }}" class="btn btn-secondary">View Answer</a>
+                        </div>
                     </div>
                 </div>
             </div>
