@@ -16,6 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string('question_topic');
             $table->string('question_content');
+            $table->string('question_answer')->nullable();
             $table->timestamp('question_asked_time')->nullable();
             $table->timestamp('question_answered_time')->nullable();
             $table->timestamp('time_taken')->nullable();

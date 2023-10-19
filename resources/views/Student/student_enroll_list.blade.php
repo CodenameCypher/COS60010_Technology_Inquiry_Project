@@ -57,10 +57,11 @@
                         <td>{{$session->teacher->user->name}}</td>
                         @endif
                         <td>
-                            <form action="{{route('studentSessionUnEnroll',$session->id)}}" method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-outline-danger btn-sm">Unenroll</button>
-                            </form>
+                            @if (now() >= \Carbon\Carbon::parse($session->session_starting_time) && now() <= \Carbon\Carbon::parse($session->session_ending_time))
+                                <a class="btn btn-outline-success btn-sm" href="{{route('studentSessionDashboard', $session->id)}}">Join</a>
+                            @else
+                                <button type="submit" class="btn btn-outline btn-sm" disabled>Join</button>
+                            @endif
                             
                         </td>
                     </tr>
