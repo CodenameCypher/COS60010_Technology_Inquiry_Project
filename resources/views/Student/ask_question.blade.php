@@ -26,10 +26,12 @@
                                 <textarea id="question" name="question" class="form-control" required></textarea>
                             
                             </div>
-                            
-
                             <button type="submit" class="btn btn-primary">Submit Question</button>
                         </form>
+
+                        <div class="mt-3">
+                            <a href="{{ route('studentClassAttendance', ['id' => $sessionId]) }}" class="btn btn-secondary">Question List</a>
+                        </div>
                     </div>
                 </div>
             </div>

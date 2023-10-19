@@ -55,6 +55,16 @@ class StudentController extends Controller
 
     }
 
+    public function classAttendance($id)
+    {
+    $questions = Question::where('session_id', $id)->get();
+
+    return view('student.class_attendance', [
+        'questions' => $questions,
+        'sessionId' => $id,
+    ]);
+    }
+
     public function askQuestionForm($id)
     {
         return view('student.ask_question', ['sessionId'=> $id]);
