@@ -20,8 +20,7 @@
                             @csrf
 
                             <div class="form-group">
-                                <label for="questionTopic">{{$question->question_topic}}</label>
-                                <label for="question">{{$question->question_content}}</label>
+                                
                                 <label for="answer">Answer</label>
                                 <textarea id="answer" name="answer" class="form-control" required></textarea>
                                 
@@ -30,7 +29,7 @@
                         </form>
 
                         <div class="mt-3">
-                            <a href="{{ route('teacherClassAttendance', ['id' => $sessionId]) }}" class="btn btn-secondary">View Answer</a>
+                            <a href="{{ route('teachAttendance', ['id' => $sessionId]) }}" class="btn btn-secondary">View Answer</a>
                         </div>
                     </div>
                 </div>

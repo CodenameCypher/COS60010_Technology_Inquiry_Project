@@ -58,15 +58,40 @@ public function session_Unenroll($id)
       return view('teacher.view_ques_list');
     }
 
-    public function submitAnswer($id)
+    public function submitAnswer(Request $request, $id)
     {
-        $question = Question::find($id);
-        return view('submit.answer', compact('question'));
+    // Validate the form data
+    $request->validate([
+        'answer' => 'required|string|max:255', // You can adjust the validation rules as needed
+    ]);
+
+    $question = Question::find($id);
+    if (!$question) {
+        return redirect()->back()->with('error', 'Question not found.');
     }
+
+    $question->update([
+        'question_answer' => $request->answer,
+    ]);
+
+    return redirect()->back()->with('success', 'Answer submitted successfully!');
+}
+
 
     public function answerQuestion($id)
     {
         $question = Question::find($id);
-        return view('answer.question', compact('question'));
+        return view('teacher.answer_question', ['sessionId'=> $id]);
+        
+    }
+
+    public function teachAttendance($id)
+    {
+    $questions = Question::where('session_id', $id)->get();
+
+    return view('teacher.teacher_attendance', [
+        'questions' => $questions,
+        'sessionId' => $id,
+    ]);
     }
 }

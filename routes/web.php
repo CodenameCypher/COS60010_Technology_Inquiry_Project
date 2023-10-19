@@ -78,6 +78,7 @@ Route::group(['middleware' => 'auth'], function () {
     // View Question and Answer Routes
     Route::get('/view-questions', [TeacherController::class, 'question_list'])->name('view.question');
     Route::get('/teacher/{id}/answer-question', [TeacherController::class, 'answerQuestion'])->name('answer.question');
-    Route::get('/teacher/{id}/answer', [TeacherController::class, 'submitAnswer'])->name('submit.answer');
+    Route::post('/teacher/{id}/submit-answer', [TeacherController::class, 'submitAnswer'])->name('submit.answer');
+    Route::get('/teacher/teach-attendance/{id}', [TeacherController::class, 'teachAttendance'])->name('teachAttendance');
 
 });

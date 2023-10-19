@@ -16,7 +16,8 @@ class Question extends Model
         'time_taken',
         'teacher_id',
         'student_id',
-        'session_id'
+        'session_id',
+        'question_answer'
     ];
 
     protected $casts = [
