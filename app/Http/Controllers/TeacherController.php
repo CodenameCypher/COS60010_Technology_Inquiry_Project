@@ -155,7 +155,7 @@ class TeacherController extends Controller
         $data['question_answer'] = $request->questionAnswer;
         $data['question_answered_time'] = now();
         $data['time_taken'] = $question->time_taken == null ? gmdate('H:i:s', $question->question_asked_time->diffInSeconds(now())) : $question->time_taken;
-        $data['teacher_id'] = $teacher->user->id;
+        $data['teacher_id'] = $teacher->id;
 
         $question->update($data);
         return redirect(route('teacherSessionDashboard', $session->id));
