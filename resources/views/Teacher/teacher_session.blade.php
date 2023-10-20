@@ -31,7 +31,7 @@
     <div class="container bg-white">
         <div class="col-md-12 text-center">
             <h1>Session #{{$session->id}} - {{$session->session_topic}}</h1>
-            <h5 style="margin-bottom: 30px">Conducted By - {{$session->teacher == null ? "TBA" : $session->teacher->user->name}}</h5>
+            <h4 style="margin-bottom: 20px">Number of Students - {{$session->students->count()}}</h4>
             <table class="table table-hover">
                 <thead>
                   <tr>
@@ -52,19 +52,16 @@
                         <td>{{$question->question_asked_time}}</td>
                         <td>{{$question->student->user->name}}</td>
                         <td>
-                            @if ($question->question_answer != "" and $question->question_answer != null)
-                            <a class="btn btn-outline-success btn-sm" href="{{route('studentSessionSeeAnswer', ['sessionID'=>$session->id, 'questionID'=>$question->id])}}">See Answer</a>
+                            @if ($question->question_answer == "" or $question->question_answer == null)
+                            <a class="btn btn-outline-success btn-sm" href="{{route("teacherSessionAnswerQuestion",['sessionID'=>$session->id, 'questionID'=>$question->id])}}">Post Answer</a>
                             @else
-                            <button class="btn btn-outline btn-sm" disabled>See Answer</button>
+                            <a class="btn btn-outline-success btn-sm" href="{{route("teacherSessionUpdateAnswer",['sessionID'=>$session->id, 'questionID'=>$question->id])}}">Edit Answer</a>
                             @endif
                         </td>
                     </tr>
                   @endforeach
                 </tbody>
               </table>
-              <a class="center" href="{{route('studentSessionPostQuestion',$session->id)}}">
-                <button type="button" class="btn btn-dark">Post Question</button>
-            </a>
         </div>
     </div>
     
