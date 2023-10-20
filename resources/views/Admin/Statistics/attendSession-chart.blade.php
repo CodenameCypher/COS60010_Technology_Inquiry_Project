@@ -122,7 +122,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach (\App\Models\Question::all() as $question)
+            
+
+                  @foreach (\App\Models\Question::whereNotNull('teacher_id')->where('session_id', $sessionID)->get() as $question)
                     <tr>
                         <th scope="row">{{$loop->index + 1}}</th>
                         <td>{{$question->question_topic}}</td>

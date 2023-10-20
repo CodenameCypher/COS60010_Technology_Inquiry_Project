@@ -240,9 +240,11 @@ class AdminController extends Controller
         $answered = $session->questions->whereNotNull('teacher_id')->count();
       
 
-        
-        // Get the questions for that session.
-        $questions = $session->questions;
+ 
+
+
+        // Get the questions for that session and are answered by a teacher.
+        $questions = $session->questions->whereNotNull('teacher_id');
         
         // Calculate the total time duration in seconds and count of questions.
         $totalDuration = 0;
@@ -276,5 +278,7 @@ class AdminController extends Controller
 
       
         return view('admin.statistics.attendSession-chart', ['attended' => $attendedSession, 'notAttended' => $notAttended, 'sessionID' => $id, 'notAnswered' => $notAnswered, 'answered' => $answered, 'totalStudent' => $totalstudents, 'totalQuestions' => $totalQuestions, 'averageAnsTime' => $roundedaverageAnsTime ]);
+    
+   
     }
 }
