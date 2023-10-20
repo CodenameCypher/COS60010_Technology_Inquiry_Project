@@ -10,7 +10,7 @@ Bright Boost is a web-based platform designed to facilitate seamless communicati
 - [Getting Started](#getting-started)
 - [Project Structure](#project-structure)
 - [Usage](#usage)
-- [Contributing](#contributing)
+- [Contributors](#contributing)
 
 ## Features
 
@@ -83,7 +83,7 @@ To get started with Bright Boost on your local machine, follow these steps:
    php artisan serve
    ```
 
-7. **Access the Application**:
+7. **Access the Application**
 
 ## Project Structure
 
@@ -128,8 +128,8 @@ To use Bright Boost, follow these steps:
 
 ## Contributors
 
-1. Aditya Roy.
-2. Nabeel Ahmed.
-3. Fahim Shahrear.
+1. [Aditya Roy](https://github.com/CodenameCypher).
+2. [Nabeel Ahmed](https://github.com/nabSwin99).
+3. [Fahim Shahrear](https://github.com/FahimShahrear).
 
 
