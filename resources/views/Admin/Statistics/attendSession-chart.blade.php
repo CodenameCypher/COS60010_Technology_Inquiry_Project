@@ -119,6 +119,8 @@
                     <th scope="col">Topic</th>
                     <th scope="col">Content</th>
                     <th scope="col">Time Taken</th>
+                    <th scope="col">Asked By</th>
+                    <th scope="col">Answered By</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -130,6 +132,8 @@
                         <td>{{$question->question_topic}}</td>
                         <td>{{$question->question_content}}</td>
                         <td>{{$question->time_taken}}</td>
+                        <td>{{$question->student->user->name}}</td>
+                        <td>{{$question->teacher->user->name ?? "-"}}</td>
 
                     </tr>
                   @endforeach
