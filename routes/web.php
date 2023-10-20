@@ -79,7 +79,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Chart Visuals
     Route::get('/admin/statistics/statSessionList', [AdminController::class, 'session_list_stat'])->name('adminStat');
-
     Route::get('/admin/statistics/{id}/statSessionCharts', [AdminController::class, 'adminCharts'])->name('adminCharts');
 
 

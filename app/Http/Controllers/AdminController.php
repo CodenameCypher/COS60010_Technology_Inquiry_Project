@@ -131,37 +131,69 @@ class AdminController extends Controller
 
     public function user_editPost(Request $request, $id)
     {
-        $user = User::findOrFail($id);
-        $request->validate([
-            'firstName' => 'required',
-            'lastName' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-        ]);
-
-        $user->name = "$request->firstName $request->lastName";
-        $user->password = Hash::make($request->password);
-       
-        $teacher = $user->teacher;
-        $teacher->firstName = $request->firstName; // needs for student part 10th oct
-        $teacher->lastName = $request->lastName;
-
-        $checkEmail = $user->where('email',$request->email)->exists();
+        if (Auth::check()) {
+            if (Auth::user()->userType != "Admin") {
+                return redirect(route('home'))->with('error', 'This page is only accessible for admins!');
+            } else {
 
 
-        if($user->email == $request->email){
-            $user->save();
-            $teacher->save();
-            return redirect(route('adminUserView'))->with('success', 'Updated successfully!');
-        } 
-        else if ($checkEmail) {
-            return redirect(route('userEdit', $user->id))->with('error', 'New Email entered already exist! Try with another email.');
-        }
-        else{
-            $user->email = $request->email;
-            $user->save();
-            $teacher->save();
-            return redirect(route('adminUserView'))->with('success', 'Updated successfully!');
+                $user = User::findOrFail($id);
+                $request->validate([
+                    'firstName' => 'required',
+                    'lastName' => 'required',
+                    'email' => 'required',
+                    'password' => 'required',
+                ]);
+
+                //Assigning changes in user table.
+                $user->name = "$request->firstName $request->lastName";
+                $user->password = Hash::make($request->password);
+
+                // Assigning changes based on user type.
+                if ($user->userType == "Teacher") {
+                    $teacher = $user->teacher;
+                    $teacher->firstName = $request->firstName; // For Teacher update
+                    $teacher->lastName = $request->lastName;
+                } else if ($user->userType == "Student") {
+                    $student = $user->student; // For Student update
+                    $student->firstName = $request->firstName;
+                    $student->lastName = $request->lastName;
+                }else{
+                    //If the user is admin, then the details will not update.
+                    return redirect(route('adminUserView'))->with('error', 'You do not have the permissions to change admin details!');
+
+                }
+
+                //Checking if entered email already exists or not.
+                $checkEmail = $user->where('email', $request->email)->exists();
+
+
+                if ($user->email == $request->email) {
+                    $user->save();
+                    if ($user->userType == "Teacher") {
+                        $teacher->save();
+                    } else {
+                        $student->save();
+                    }
+                    return redirect(route('adminUserView'))->with('success', 'Updated successfully!');
+                    
+                } else if ($checkEmail) {
+                    return redirect(route('userEdit', $user->id))->with('error', 'New Email entered already exist! Try with another email.');
+                } else {
+                    $user->email = $request->email;
+                    $user->save();
+
+                    if ($user->userType == "Teacher") {
+                        $teacher->save();
+                    } else {
+                        $student->save();
+                    }
+
+                    return redirect(route('adminUserView'))->with('success', 'Updated successfully!');
+                }
+
+
+            }
         }
     }
 
@@ -198,9 +230,7 @@ class AdminController extends Controller
                 $totalstudents ++;
             }
         }
-        //ignore, jus testing..
-        // $attended = $session->students->where('attended', 1)->count();
-        // $notAttended = $session->students->where('attended', 0)->count();
+
         $totalQuestions = $session->questions->count();
         $notAnswered = $session->questions->where('teacher_id', null)->count();
         $answered = $session->questions->whereNotNull('teacher_id')->count();
