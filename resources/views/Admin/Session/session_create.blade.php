@@ -49,6 +49,7 @@
             <div class="form-group my-3">
                 <label for="Teacher">Teacher</label>
                 <select id="Teacher" class="form-control" name="Teacher">
+                    <option value="no teacher">---</option>
                   @foreach (\App\Models\Teacher::all() as $teacher)
                       <option value="{{$teacher->id}}">{{$teacher->user->name}}</option>
                   @endforeach
