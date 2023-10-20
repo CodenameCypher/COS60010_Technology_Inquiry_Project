@@ -48,13 +48,13 @@ To get started with Bright Boost on your local machine, follow these steps:
 
 1. **Clone the Repository**:
    ```bash
-    git clone https://github.com/your-username/bright-boost.git
+    git clone https://github.com/CodenameCypher/COS60010_Technology_Inquiry_Project.git
     ```
     
 2. **Setup Environment Variables**:
    Create a `.env` file by copying the `.env.example` file. Update the database configuration and any other environment variables as needed.
    ```bash
-   git clone https://github.com/your-username/bright-boost.git
+   cp .env.example .env
    ```
     
 3. **Install Dependencies**:
