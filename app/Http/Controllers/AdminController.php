@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Question;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -233,12 +235,46 @@ class AdminController extends Controller
         }
 
         $totalQuestions = $session->questions->count();
+    
         $notAnswered = $session->questions->where('teacher_id', null)->count();
         $answered = $session->questions->whereNotNull('teacher_id')->count();
+      
 
+        
+        // Get the questions for that session.
+        $questions = $session->questions;
+        
+        // Calculate the total time duration in seconds and count of questions.
+        $totalDuration = 0;
+        $count = 0;
+        foreach ($questions as $question) {
 
+        // Convert the time_taken datetime string to a Carbon object.
+        $timeTaken = Carbon::parse($question->time_taken);
 
+        // Extract the time portion (HH:MM:SS) from the datetime.
+        $timePortion = $timeTaken->toTimeString();
 
-        return view('admin.statistics.attendSession-chart', ['attended' => $attendedSession, 'notAttended' => $notAttended, 'sessionID' => $id, 'notAnswered' => $notAnswered, 'answered' => $answered, 'totalStudent' => $totalstudents, 'totalQuestions' => $totalQuestions]);
+        // Calculate the time duration in seconds.
+        list($hours, $minutes, $seconds) = explode(':', $timePortion);
+        $duration = $hours * 3600 + $minutes * 60 + $seconds;
+
+        // Add it to the total duration
+        $totalDuration += $duration;
+
+        // Increase the count.
+         $count++;
+        }
+
+            
+    
+        // Calculate the average time duration in seconds.
+        $averageAnsTime = ($count > 0) ? $totalDuration / $count : 0;
+
+        // Round the average duration to two decimal places
+        $roundedaverageAnsTime = number_format($averageAnsTime, 2);
+
+      
+        return view('admin.statistics.attendSession-chart', ['attended' => $attendedSession, 'notAttended' => $notAttended, 'sessionID' => $id, 'notAnswered' => $notAnswered, 'answered' => $answered, 'totalStudent' => $totalstudents, 'totalQuestions' => $totalQuestions, 'averageAnsTime' => $roundedaverageAnsTime ]);
     }
 }
