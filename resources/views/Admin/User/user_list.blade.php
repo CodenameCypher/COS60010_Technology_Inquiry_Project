@@ -44,7 +44,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                    <!-- Displaying all the session list to student user with enroll option.-->
+              
                   @foreach (\App\Models\User::all() as $user)
                     <tr>
                         <th scope="row">{{$loop->index + 1}}</th>

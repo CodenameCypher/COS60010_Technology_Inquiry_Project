@@ -130,7 +130,7 @@ class AdminController extends Controller
 
     public function user_editPost(Request $request, $id)
     {
-//<<<<<<< HEAD
+
         if (Auth::check()) {
             if (Auth::user()->userType != "Admin") {
                 return redirect(route('home'))->with('error', 'This page is only accessible for admins!');
@@ -194,37 +194,7 @@ class AdminController extends Controller
 
 
             }
-// =======
-//         $user = User::findOrFail($id);
-//         $request->validate([
-//             'firstName' => 'required',
-//             'lastName' => 'required',
-//             'email' => 'required',
-//             'password' => 'required',
-//         ]);
 
-//         $user->name = "$request->firstName $request->lastName";
-//         $user->password = Hash::make($request->password);
-
-//         $teacher = $user->teacher;
-//         $teacher->firstName = $request->firstName; // needs for student part 10th oct
-//         $teacher->lastName = $request->lastName;
-
-//         $checkEmail = $user->where('email', $request->email)->exists();
-
-
-//         if ($user->email == $request->email) {
-//             $user->save();
-//             $teacher->save();
-//             return redirect(route('adminUserView'))->with('success', 'Updated successfully!');
-//         } else if ($checkEmail) {
-//             return redirect(route('userEdit', $user->id))->with('error', 'New Email entered already exist! Try with another email.');
-//         } else {
-//             $user->email = $request->email;
-//             $user->save();
-//             $teacher->save();
-//             return redirect(route('adminUserView'))->with('success', 'Updated successfully!');
-// >>>>>>> 2a4500b7e4cfa1f4e7d549807a1d95a273039532
         }
     }
 
