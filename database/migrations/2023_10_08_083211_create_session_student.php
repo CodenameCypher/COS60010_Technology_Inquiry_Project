@@ -17,6 +17,7 @@ return new class extends Migration
 
             $table->foreignId("session_id")->constrained()->onDelete('cascade');
             $table->foreignId("student_id")->constrained()->onDelete('cascade');
+            $table->string('attended')->default(0);
         });
     }
 

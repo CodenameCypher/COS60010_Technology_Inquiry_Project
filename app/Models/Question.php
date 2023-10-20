@@ -11,6 +11,7 @@ class Question extends Model
     protected $fillable = [
         'question_topic',
         'question_content',
+        'question_answer',
         'question_asked_time',
         'question_answered_time',
         'time_taken',

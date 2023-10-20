@@ -1,6 +1,6 @@
 @extends('common.layout')
 
-@section('title', 'Enrolled Sessions | Bright Boost')
+@section('title', 'Session Dashboard | Bright Boost')
 
 @section('body')
 <div class="mt-5">
@@ -30,44 +30,41 @@
 <div class="container">
     <div class="container bg-white">
         <div class="col-md-12 text-center">
+            <h1>Session #{{$session->id}} - {{$session->session_topic}}</h1>
+            <h5 style="margin-bottom: 30px">Conducted By - {{$session->teacher == null ? "TBA" : $session->teacher->user->name}}</h5>
             <table class="table table-hover">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">ID</th>
                     <th scope="col">Topic</th>
-                    <th scope="col">Start</th>
-                    <th scope="col">End</th>
-                    <th scope="col">Teacher</th>
+                    <th scope="col">Content</th>
+                    <th scope="col">Asked</th>
+                    <th scope="col">Asked By</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                    <!-- Displaying all the enrooled session list to student user with unenroll option.-->
-                  @foreach ($enrolled_sessions as $session)
+                  @foreach ($session->questions as $question)
                     <tr>
                         <th scope="row">{{$loop->index + 1}}</th>
-                        <td>{{$session->id}}</td>
-                        <td>{{$session->session_topic}}</td>
-                        <td>{{$session->session_starting_time}}</td>
-                        <td>{{$session->session_ending_time}}</td>
-                        @if (is_null($session->teacher_id))
-                        <td>TBA</td>
-                        @else 
-                        <td>{{$session->teacher->user->name}}</td>
-                        @endif
+                        <td>{{$question->question_topic}}</td>
+                        <td>{{$question->question_content}}</td>
+                        <td>{{$question->question_asked_time}}</td>
+                        <td>{{$question->student->user->name}}</td>
                         <td>
-                            @if (now() >= \Carbon\Carbon::parse($session->session_starting_time) && now() <= \Carbon\Carbon::parse($session->session_ending_time))
-                                <a class="btn btn-outline-success btn-sm" href="{{route('studentSessionDashboard', $session->id)}}">Join</a>
+                            @if ($question->question_answer != "" and $question->question_answer != null)
+                            <a class="btn btn-outline-success btn-sm" href="{{route('studentSessionSeeAnswer', ['sessionID'=>$session->id, 'questionID'=>$question->id])}}">See Answer</a>
                             @else
-                                <button type="submit" class="btn btn-outline btn-sm" disabled>Join</button>
+                            <button class="btn btn-outline btn-sm" disabled>See Answer</button>
                             @endif
-                            
                         </td>
                     </tr>
                   @endforeach
                 </tbody>
               </table>
+              <a class="center" href="{{route('studentSessionPostQuestion',$session->id)}}">
+                <button type="button" class="btn btn-dark">Post Question</button>
+            </a>
         </div>
     </div>
     

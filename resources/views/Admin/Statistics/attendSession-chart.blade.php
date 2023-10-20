@@ -1,5 +1,6 @@
 @extends('common.layout')
 
+@section('title', 'Statistics | Bright Boost')
 
 @section('body')
 

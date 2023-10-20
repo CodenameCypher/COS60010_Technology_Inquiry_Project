@@ -55,6 +55,11 @@
                                     <form action="{{route('teacherSessionUnEnroll',$session->id)}}" method="POST">
                                         @csrf
                                         <button type="submit" class="btn btn-outline-danger btn-sm">Unenroll</button>
+                                        @if (now() >= \Carbon\Carbon::parse($session->session_starting_time) && now() <= \Carbon\Carbon::parse($session->session_ending_time))
+                                        <a class="btn btn-outline-success btn-sm" href="{{route('teacherSessionDashboard', $session->id)}}">Join</a>
+                                        @else
+                                        <button type="submit" class="btn btn-outline btn-sm" disabled>Join</button>
+                                        @endif
                                     </form>
                                     
                                 </td>

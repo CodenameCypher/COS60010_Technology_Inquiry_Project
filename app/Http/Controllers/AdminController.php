@@ -45,7 +45,7 @@ class AdminController extends Controller
         $data['session_topic'] = $request->SessionTopic;
         $data['session_starting_time'] = $request->SessionStartingTime;
         $data['session_ending_time'] = $request->SessionEndingTime;
-        $data['teacher_id'] = $request->Teacher;
+        $data['teacher_id'] = $request->Teacher == "no teacher" ? null : $request->Teacher;
 
         $session = Session::create($data);
         if ($session) {
@@ -122,7 +122,6 @@ class AdminController extends Controller
             } else {
                 $user = User::findOrFail($id);
                 return view('admin.user.user_edit', ['user' => $user]);
-
             }
         }
     }
@@ -131,6 +130,7 @@ class AdminController extends Controller
 
     public function user_editPost(Request $request, $id)
     {
+//<<<<<<< HEAD
         if (Auth::check()) {
             if (Auth::user()->userType != "Admin") {
                 return redirect(route('home'))->with('error', 'This page is only accessible for admins!');
@@ -194,6 +194,37 @@ class AdminController extends Controller
 
 
             }
+// =======
+//         $user = User::findOrFail($id);
+//         $request->validate([
+//             'firstName' => 'required',
+//             'lastName' => 'required',
+//             'email' => 'required',
+//             'password' => 'required',
+//         ]);
+
+//         $user->name = "$request->firstName $request->lastName";
+//         $user->password = Hash::make($request->password);
+
+//         $teacher = $user->teacher;
+//         $teacher->firstName = $request->firstName; // needs for student part 10th oct
+//         $teacher->lastName = $request->lastName;
+
+//         $checkEmail = $user->where('email', $request->email)->exists();
+
+
+//         if ($user->email == $request->email) {
+//             $user->save();
+//             $teacher->save();
+//             return redirect(route('adminUserView'))->with('success', 'Updated successfully!');
+//         } else if ($checkEmail) {
+//             return redirect(route('userEdit', $user->id))->with('error', 'New Email entered already exist! Try with another email.');
+//         } else {
+//             $user->email = $request->email;
+//             $user->save();
+//             $teacher->save();
+//             return redirect(route('adminUserView'))->with('success', 'Updated successfully!');
+// >>>>>>> 2a4500b7e4cfa1f4e7d549807a1d95a273039532
         }
     }
 
@@ -222,12 +253,12 @@ class AdminController extends Controller
         $session = Session::find($id);
         foreach ($session->students as $student) {
             $attended = $student->pivot->attended;
-            if($attended == 1){
-                $attendedSession ++;
-                $totalstudents ++;
-            }else{
-                $notAttended ++;
-                $totalstudents ++;
+            if ($attended == 1) {
+                $attendedSession++;
+                $totalstudents++;
+            } else {
+                $notAttended++;
+                $totalstudents++;
             }
         }
 
@@ -235,11 +266,9 @@ class AdminController extends Controller
         $notAnswered = $session->questions->where('teacher_id', null)->count();
         $answered = $session->questions->whereNotNull('teacher_id')->count();
 
-       
 
- 
-        return view('admin.statistics.attendSession-chart', ['attended' => $attendedSession, 'notAttended' => $notAttended, 'sessionID' => $id, 'notAnswered' => $notAnswered, 'answered' => $answered, 'totalStudent'=> $totalstudents, 'totalQuestions'=>$totalQuestions]);
+
+
+        return view('admin.statistics.attendSession-chart', ['attended' => $attendedSession, 'notAttended' => $notAttended, 'sessionID' => $id, 'notAnswered' => $notAnswered, 'answered' => $answered, 'totalStudent' => $totalstudents, 'totalQuestions' => $totalQuestions]);
     }
-
-
 }
