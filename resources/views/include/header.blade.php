@@ -17,6 +17,9 @@
             <a class="nav-link active" aria-current="page" href="{{route('adminSessionList')}}">Sessions</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{route('adminShowStudentsList')}}">Session Students</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{{route('adminQuestionList')}}">Questions</a>
           </li>
           <li class="nav-item">

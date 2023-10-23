@@ -44,7 +44,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/admin/users', [AdminController::class, 'user_list'])->name('adminUserView');
     Route::get('/admin/users/{id}/edit', [AdminController::class, 'user_edit'])->name('userEdit');
     Route::post('/admin/users/{id}/edit', [AdminController::class, 'user_editPost'])->name('adminUserEdit.post');
-
+    Route::get('/admin/sessions_with_students', [AdminController::class, 'session_list_students'])->name('adminShowStudentsList');
+    Route::get('/admin/sessions_with_students/{id}', [AdminController::class, 'session_show_students'])->name('adminShowStudents');
+    Route::get('/admin/sessions_with_students/{sessionID}/unenroll/{studentID}', [AdminController::class, 'session_student_unenroll'])->name('studentUnenroll');
 
     //Student Routes:
     Route::get('/student/sessions', [StudentController::class, 'session_list'])->name('studentSessionList');

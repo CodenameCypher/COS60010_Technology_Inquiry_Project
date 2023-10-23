@@ -57,13 +57,6 @@ class StudentController extends Controller
         }
     }
 
-    // public function session_Unenroll($id)
-    // {
-    //     $student = Student::where('user_id', auth()->id())->first();
-    //     $student->sessions()->detach($id);
-    //     return redirect(route('studentEnrolledSessionList'))->with('success', 'Session Unrolled Successfully!');
-    // }
-
     public function session_dashboard($id)
     {
         $session = Session::where('id', $id)->first();
